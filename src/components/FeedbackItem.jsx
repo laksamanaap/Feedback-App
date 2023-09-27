@@ -8,6 +8,7 @@ function FeedbackItem({item}) {
   const { deleteFeedback, editFeedback } = useContext(FeedbackContext)
   
   return (
+    console.log(item),
     <Card>
       <div className="num-display">{item.rating}</div>
       <button onClick={() => deleteFeedback(item.id)}  className="close">

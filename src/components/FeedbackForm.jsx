@@ -13,7 +13,9 @@ function FeedbackForm() {
 
    const {addFeedback, feedbackEdit, updateFeedback} = useContext(FeedbackContext)
 
-   useEffect( () => {
+   useEffect(() => {
+      console.log(feedbackEdit.edit);
+
       if (feedbackEdit.edit === true) {
          setBtnDisabled(false)
          setText(feedbackEdit.item.text)
