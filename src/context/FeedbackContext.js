@@ -10,20 +10,23 @@ export const FeedbackProvider = ({children}) => {
     item: {},
     edit: false,
   });
+  
+  const fetchFeedback = async () => {
+      try {
+      const response = await fetch(`/feedback?_sort=id&_order=desc`);
 
-  useEffect(() => {
-    fetchFeedback();
-  }, []);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-  // fetch feedback
-  const fetchFeedback = async() => {
-    const response = await fetch(`/feedback?_sort=id&_order=desc`);
-
-    const data = await response.json();
-    setFeedback(data);
-
-    setIsLoading(false);
-  };
+      const data = await response.json();
+      setFeedback(data);
+      setIsLoading(false);
+        
+      } catch (e) {
+        console.log('Error : ', e);
+      }
+  }
 
   // Add Feedback
   const addFeedback = async (newFeedback) => {
@@ -73,6 +76,10 @@ export const FeedbackProvider = ({children}) => {
       feedback.map((item) => (item.id === id ? { ...item, ...data } : item))
     );
   };
+
+  useEffect(() => {
+    fetchFeedback();
+  }, []);
 
   return (
     <FeedbackContext.Provider
